@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .form-input-add-edit-product {
+    @apply w-80 px-3 py-5 bg-indigo-600 rounded-md text-white placeholder:text-indigo-200 focus:outline-none focus:outline-2 focus:outline-indigo-900 duration-100;
+  }
+}
