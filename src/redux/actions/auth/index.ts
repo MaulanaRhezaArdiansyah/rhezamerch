@@ -7,6 +7,7 @@ import {
 
 export const USER_REGISTER = "USER_REGISTER";
 export const USER_LOGIN = "USER_LOGIN";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const userRegister = (data: UserRegisterType) => {
   return (dispatch: DispatchAuthType) => {
@@ -23,7 +24,7 @@ export const userRegister = (data: UserRegisterType) => {
 
     axios({
       method: "POST",
-      url: "http://localhost:9000/auth/register",
+      url: `${API_URL}/auth/register`,
       data,
       timeout: 120000,
     })
@@ -68,7 +69,7 @@ export const userLogin = (data: UserLoginType) => {
 
     axios({
       method: "POST",
-      url: "http://localhost:9000/auth/login",
+      url: `${API_URL}/auth/login`,
       data,
       timeout: 120000,
     })

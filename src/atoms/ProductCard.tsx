@@ -5,6 +5,8 @@ import { getAllProduct } from "../redux/actions/product";
 import { ProductType } from "../types/product.type";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const ProductCard: React.FC = () => {
   const {
     getAllProductDataLoading,
@@ -36,8 +38,8 @@ export const ProductCard: React.FC = () => {
             <img
               src={
                 product.image
-                  ? `http://localhost:9000/${product.image}`
-                  : `http://localhost:9000/product-default-img.png`
+                  ? `${API_URL}/${product.image}`
+                  : `${API_URL}/product-default-img.png`
               }
               alt={product.title}
               className="rounded-md mb-1 sm:mb-3 w-40 h-40"

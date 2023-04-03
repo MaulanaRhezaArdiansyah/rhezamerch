@@ -11,7 +11,7 @@ export const GET_DETAIL_PRODUCT_DATA = "GET_DETAIL_PRODUCT_DATA";
 export const ADD_NEW_PRODUCT = "ADD_NEW_PRODUCT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
-
+const API_URL = import.meta.env.VITE_API_URL;
 export const getAllProduct = () => {
   return (dispatch: DispatchProductType) => {
     dispatch({
@@ -26,8 +26,7 @@ export const getAllProduct = () => {
 
     axios({
       method: "GET",
-      //   url: `https://api-rhezamerch.vercel.app/product`,
-      url: `http://localhost:9000/product`,
+      url: `${API_URL}/product`,
       timeout: 120000,
     })
       .then((response) => {
@@ -68,8 +67,7 @@ export const getDetailProduct = (id: string | undefined) => {
 
     axios({
       method: "GET",
-      //   url: `https://api-rhezamerch.vercel.app/product`,
-      url: `http://localhost:9000/product/${id}`,
+      url: `${API_URL}/product/${id}`,
       timeout: 120000,
     })
       .then((response) => {
@@ -110,8 +108,7 @@ export const addNewProduct = (data: AddNewProductType) => {
 
     axios({
       method: "POST",
-      //   url: `https://api-rhezamerch.vercel.app/product`,
-      url: `http://localhost:9000/product`,
+      url: `${API_URL}/product`,
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -157,8 +154,7 @@ export const deleteProduct = (id: string | undefined) => {
 
     axios({
       method: "DELETE",
-      //   url: `https://api-rhezamerch.vercel.app/product`,
-      url: `http://localhost:9000/product/${id}`,
+      url: `${API_URL}/product/${id}`,
       timeout: 120000,
     })
       .then((response) => {
@@ -203,8 +199,7 @@ export const updateProduct = (
 
     axios({
       method: "PUT",
-      //   url: `https://api-rhezamerch.vercel.app/product`,
-      url: `http://localhost:9000/product/${id}`,
+      url: `${API_URL}/product/${id}`,
       headers: {
         "Content-Type": "multipart/form-data",
       },

@@ -5,6 +5,8 @@ import { deleteProduct, getDetailProduct } from "../../redux/actions/product";
 import { Navbar } from "../../molecules/Navbar";
 import { ProductType } from "../../types/product.type";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const ProductDetail: React.FC = () => {
   const { productID } = useParams();
   const {
@@ -68,8 +70,8 @@ export const ProductDetail: React.FC = () => {
               <img
                 src={
                   product.image
-                    ? `http://localhost:9000/${product.image}`
-                    : `http://localhost:9000/product-default-img.png`
+                    ? `${API_URL}/${product.image}`
+                    : `${API_URL}/product-default-img.png`
                 }
                 alt={product.title}
                 className="rounded-md mb-1 sm:mb-3"
@@ -99,7 +101,9 @@ export const ProductDetail: React.FC = () => {
             </>
           ) : (
             <button
-              onClick={() => navigate(`/edit/${productID}`)}
+              onClick={() =>
+                alert("Sorry, this feature still in development 🙏")
+              }
               className="bg-indigo-700 w-52 py-3 rounded-lg text-white font-medium mt-10 hover:bg-transparent border-2 border-indigo-800 duration-100"
             >
               Add to cart
