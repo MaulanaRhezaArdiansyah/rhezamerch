@@ -7,12 +7,14 @@ import { useNavigate } from "react-router-dom";
 // refetch: boolean;
 // }
 
+const FE_URL = "https://rhezamerchh.vercel.app";
 // export const Navbar: React.FC<Props> = ({ logout, refetch }) => {
 export const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [refetch, setRefetch] = useState<boolean>(false);
+  const userData = false;
 
   const toggleMenu = () => {
     setActive(!active);
@@ -44,7 +46,11 @@ export const Navbar: React.FC = () => {
         >
           {isLoggedIn ? (
             <img
-              src="http://localhost:5173/default-avatar.png"
+              src={
+                userData
+                  ? `${FE_URL}/default-avatar.png`
+                  : `${FE_URL}/default-avatar.png`
+              }
               alt=""
               className="w-10 h-10 rounded-full"
             />
