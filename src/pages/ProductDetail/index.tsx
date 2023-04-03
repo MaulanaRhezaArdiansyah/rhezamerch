@@ -16,6 +16,8 @@ export const ProductDetail: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [clickDelete, setClickDelete] = useState(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const handleDelete = (id: string | undefined) => {
     confirm("Are you sure?");
@@ -31,6 +33,23 @@ export const ProductDetail: React.FC = () => {
     dispatch<any>(getDetailProduct(productID));
   }, [dispatch]);
 
+  useEffect(() => {
+    const userDataLocalStorage = JSON.parse(
+      localStorage.getItem("userLogin") as string
+    );
+    const admin = userDataLocalStorage?.user?.role;
+    if (userDataLocalStorage) {
+      setIsLoggedIn(true);
+      if (admin === "admin") {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
   const product: ProductType =
     getDetailProductDataResult && getDetailProductDataResult;
 
@@ -38,7 +57,7 @@ export const ProductDetail: React.FC = () => {
     <>
       <Navbar />
       <main className="bg-black">
-        <div className="w-full h-screen flex flex-col px-5 sm:px-24 md:px-32 py-16 pt-32 justify-center items-center">
+        <div className="w-full h-[120vh] flex flex-col px-5 sm:px-24 md:px-32 py-16 pt-32 justify-center items-center">
           {getDetailProductDataResult === false ? (
             <p className="text-white text-lg">Loading....</p>
           ) : getDetailProductDataResult ? (
@@ -63,18 +82,30 @@ export const ProductDetail: React.FC = () => {
           ) : (
             <p>Data Empty</p>
           )}
-          <button
-            onClick={() => navigate(`/edit/${productID}`)}
-            className="bg-indigo-700 w-52 py-3 rounded-lg text-white font-medium mt-10 hover:bg-transparent border-2 border-indigo-800 duration-100"
-          >
-            Edit product
-          </button>
-          <button
-            onClick={() => handleDelete(productID)}
-            className="bg-indigo-800 w-52 py-3 rounded-lg text-white font-medium mt-3 hover:bg-transparent border-2 border-indigo-800 duration-100"
-          >
-            Delete product
-          </button>
+          {isLoggedIn && isAdmin ? (
+            <>
+              <button
+                onClick={() => navigate(`/edit/${productID}`)}
+                className="bg-indigo-700 w-52 py-3 rounded-lg text-white font-medium mt-10 hover:bg-transparent border-2 border-indigo-800 duration-100"
+              >
+                Edit product
+              </button>
+              <button
+                onClick={() => handleDelete(productID)}
+                className="bg-indigo-800 w-52 py-3 rounded-lg text-white font-medium mt-3 hover:bg-transparent border-2 border-indigo-800 duration-100"
+              >
+                Delete product
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => navigate(`/edit/${productID}`)}
+              className="bg-indigo-700 w-52 py-3 rounded-lg text-white font-medium mt-10 hover:bg-transparent border-2 border-indigo-800 duration-100"
+            >
+              Add to cart
+            </button>
+          )}
+
           <p className="text-white italic text-center mt-5 cursor-pointer duration-100">
             {clickDelete && deleteProductSuccess
               ? deleteProductSuccess

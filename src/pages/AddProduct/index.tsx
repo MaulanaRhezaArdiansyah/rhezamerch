@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../../molecules/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewProduct } from "../../redux/actions/product";
@@ -59,6 +59,13 @@ export const AddProduct: React.FC = () => {
   const backToHome = () => {
     navigate("/");
   };
+
+  useEffect(() => {
+    const isLoggedIn = JSON.parse(localStorage.getItem("userLogin") as string);
+    if (!isLoggedIn) {
+      navigate("/auth/login");
+    }
+  }, []);
 
   return (
     <>

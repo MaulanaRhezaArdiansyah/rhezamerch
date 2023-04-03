@@ -1,12 +1,23 @@
 import React from "react";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 interface Props {
   active: boolean;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoggedIn: boolean;
+  logout: () => void;
 }
 
-export const DropdownMenu: React.FC<Props> = ({ active, setActive }) => {
-  const isLoggedIn = false;
+export const DropdownMenu: React.FC<Props> = ({
+  active,
+  setActive,
+  isLoggedIn,
+  logout,
+}) => {
+  const navigate: NavigateFunction = useNavigate();
+  // const logout = () => {
+  //   localStorage.removeItem("userLogin");
+  // };
 
   return (
     <div
@@ -25,11 +36,17 @@ export const DropdownMenu: React.FC<Props> = ({ active, setActive }) => {
           History
         </p>
         {isLoggedIn ? (
-          <p className="duration-100 hover:bg-indigo-700 w-full text-center rounded-md cursor-pointer py-1">
+          <p
+            onClick={() => logout()}
+            className="duration-100 hover:bg-indigo-700 w-full text-center rounded-md cursor-pointer py-1"
+          >
             Logout
           </p>
         ) : (
-          <p className="duration-100 hover:bg-indigo-700 w-full text-center rounded-md cursor-pointer py-1">
+          <p
+            onClick={() => navigate("/auth/login")}
+            className="duration-100 hover:bg-indigo-700 w-full text-center rounded-md cursor-pointer py-1"
+          >
             Login
           </p>
         )}

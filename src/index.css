@@ -6,4 +6,16 @@
   .form-input-add-edit-product {
     @apply w-80 px-3 py-5 bg-indigo-600 rounded-md text-white placeholder:text-indigo-200 focus:outline-none focus:outline-2 focus:outline-indigo-900 duration-100;
   }
+  .auth-container {
+    @apply bg-indigo-800 py-5 w-[22rem] h-[34rem] rounded-xl;
+  }
+  .auth-form-input {
+    @apply bg-indigo-700 w-full h-14 rounded-md focus:outline-none focus:outline-2 focus:outline-indigo-400 px-4 placeholder:text-lg placeholder:text-indigo-200 text-lg text-indigo-200;
+  }
+}
+
+.auth-box-shadow {
+  box-shadow: 2px 7px 20px -3px rgba(79, 70, 229, 0.75);
+  -webkit-box-shadow: 2px 7px 20px -3px rgba(79, 70, 229, 0.75);
+  -moz-box-shadow: 2px 7px 20px -3px rgba(79, 70, 229, 0.75);
 }

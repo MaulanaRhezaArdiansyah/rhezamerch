@@ -1,17 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DropdownMenu } from "../atoms/DropdownMenu";
 import { useNavigate } from "react-router-dom";
 
-export const Navbar: React.FC = () => {
-  const [active, setActive] = useState(false);
+// interface Props {
+// logout: () => void;
+// refetch: boolean;
+// }
 
-  const isLoggedIn: boolean = false;
+// export const Navbar: React.FC<Props> = ({ logout, refetch }) => {
+export const Navbar: React.FC = () => {
+  const navigate = useNavigate();
+  const [active, setActive] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [refetch, setRefetch] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setActive(!active);
   };
 
-  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("userLogin");
+    setRefetch(!refetch);
+  };
+
+  useEffect(() => {
+    const user_login = JSON.parse(localStorage.getItem("userLogin") as string);
+    if (user_login) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [refetch]);
 
   return (
     <>
@@ -38,7 +57,16 @@ export const Navbar: React.FC = () => {
           )}
         </div>
       </nav>
-      {active ? <DropdownMenu active={active} setActive={setActive} /> : ""}
+      {active ? (
+        <DropdownMenu
+          active={active}
+          setActive={setActive}
+          isLoggedIn={isLoggedIn}
+          logout={logout}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 };
